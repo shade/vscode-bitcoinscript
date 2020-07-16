@@ -1,8 +1,19 @@
 {
-    "name": "bsl",
-    "displayName": "BSL",
-    "description": "Formatting for Bitcoin Script",
+    "name": "vscode-bitcoinscript",
+    "displayName": "VSCode Bitcoin Script",
+    "description": "Syntax highlighting Post-Genesis Bitcoin Script",
     "version": "0.0.1",
+    "publisher": "shade",
+    "homepage": "https://github.com/shade/bsl",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/shade/bsl"
+    },
+    "bugs": {
+        "url": "https://github.com/shade/bsl/issues"
+    },
+    "license": "MIT",
+    "icon": "images/icon.png",
     "engines": {
         "vscode": "^1.47.0"
     },
@@ -10,16 +21,25 @@
         "Programming Languages"
     ],
     "contributes": {
-        "languages": [{
-            "id": "bsl",
-            "aliases": ["Bitcoin Script", "bsl"],
-            "extensions": [".bsl"],
-            "configuration": "./language-configuration.json"
-        }],
-        "grammars": [{
-            "language": "bsl",
-            "scopeName": "source",
-            "path": "./syntaxes/bsl.tmLanguage.json"
-        }]
+        "languages": [
+            {
+                "id": "bsl",
+                "aliases": [
+                    "Bitcoin Script",
+                    "bsl"
+                ],
+                "extensions": [
+                    ".bsl"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "bsl",
+                "scopeName": "source",
+                "path": "./syntaxes/bsl.tmLanguage.json"
+            }
+        ]
     }
 }

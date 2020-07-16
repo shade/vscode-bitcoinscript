@@ -10,7 +10,7 @@ The file type for Bitcoin Script is `.bsl`
 - [ ] Code Snippets
 
 
-\!\[Syntax highlighting\]\(images/syntax-highlight.png\)
+![Syntax highlighting](images/syntax-highlight.png)
 
 ## Release Notes
 
