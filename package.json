@@ -1,8 +1,8 @@
 {
     "name": "bsl",
-    "displayName": "VSCode Bitcoin Script",
-    "description": "Syntax highlighting Post-Genesis Bitcoin Script",
-    "version": "0.0.1",
+    "displayName": "Bitcoin Scripting Language",
+    "description": "Syntax highlighting for Bitcoin Script",
+    "version": "0.0.5",
     "publisher": "shade",
     "homepage": "https://github.com/shade/bsl",
     "repository": {
@@ -15,7 +15,7 @@
     "license": "MIT",
     "icon": "images/icon.png",
     "engines": {
-        "vscode": "^1.47.0"
+        "vscode": "^1.0.0"
     },
     "categories": [
         "Programming Languages"
