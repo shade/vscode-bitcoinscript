@@ -1,0 +1,25 @@
+{
+    "name": "bsl",
+    "displayName": "BSL",
+    "description": "Formatting for Bitcoin Script",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.47.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "bsl",
+            "aliases": ["Bitcoin Script", "bsl"],
+            "extensions": [".bsl"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "bsl",
+            "scopeName": "source",
+            "path": "./syntaxes/bsl.tmLanguage.json"
+        }]
+    }
+}

@@ -1,0 +1,6 @@
+{
+    "indentationRules": {
+        "increaseIndentPattern": "^(OP_ELSE|OP_IF|OP_NOTIF)$",
+        "decreaseIndentPattern": "^(OP_ELSE|OP_ENDIF)$"
+    }
+}
