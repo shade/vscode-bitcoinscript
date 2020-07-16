@@ -1,5 +1,5 @@
 {
-    "name": "vscode-bitcoinscript",
+    "name": "bsl",
     "displayName": "VSCode Bitcoin Script",
     "description": "Syntax highlighting Post-Genesis Bitcoin Script",
     "version": "0.0.1",
