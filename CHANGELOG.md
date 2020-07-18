@@ -9,3 +9,6 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Initial release
 - Syntax highlighting added
 - Identation on OP_IF/OP_NOTIF/OP_ELSE added.
+
+## [1.0.1] - 2020-07-17
+- Change `.bsl` to `.bs` to respect 1C filetype
