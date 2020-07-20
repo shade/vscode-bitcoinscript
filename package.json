@@ -2,7 +2,7 @@
     "name": "bsl",
     "displayName": "Bitcoin Scripting Language",
     "description": "Syntax highlighting for Bitcoin Script",
-    "version": "0.0.9",
+    "version": "0.0.10",
     "publisher": "shade",
     "homepage": "https://github.com/shade/bsl",
     "repository": {
