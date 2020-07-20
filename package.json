@@ -2,7 +2,7 @@
     "name": "bsl",
     "displayName": "Bitcoin Scripting Language",
     "description": "Syntax highlighting for Bitcoin Script",
-    "version": "0.0.7",
+    "version": "0.0.9",
     "publisher": "shade",
     "homepage": "https://github.com/shade/bsl",
     "repository": {
@@ -20,13 +20,21 @@
     "categories": [
         "Programming Languages"
     ],
+    "activationEvents": [
+        "onLanguage:bitcoinscript"
+    ],
+    "main": "./out/src/extension",
     "contributes": {
         "languages": [
             {
-                "id": "bsl",
+                "id": "bitcoinscript",
                 "aliases": [
+                    "Bitcoin Scripting Language",
                     "Bitcoin Script",
-                    "bsl"
+                    "Bitcoin",
+                    "bitcoinscript",
+                    "bsl",
+                    "bs"
                 ],
                 "extensions": [
                     ".bs"
@@ -36,10 +44,16 @@
         ],
         "grammars": [
             {
-                "language": "bsl",
+                "language": "bitcoinscript",
                 "scopeName": "source",
-                "path": "./syntaxes/bsl.tmLanguage.json"
+                "path": "./syntaxes/bitcoinscript.json"
             }
         ]
+    },
+    "dependencies": {
+        "@types/node": "^14.0.23"
+    },
+    "devDependencies": {
+        "vscode": "^1.1.37"
     }
 }

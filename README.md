@@ -1,4 +1,4 @@
-# Bitcoin Scripting Language (BSL)
+# Bitcoin Script (BSL)
 
 This is the syntax highlighting extension for Bitcoin Script. Specifically, this adheres to the grammar for post-genesis Bitcoin SV.
 
@@ -7,7 +7,7 @@ The file type for Bitcoin Script is `.bs`
 ## Features
 - [x] Syntax highlighting
 - [x] Formatting
-- [x] Code Snippets
+- [] Code Snippets
 - [] Linting
 
 
@@ -24,5 +24,3 @@ Alternatively, you can download the extension from the [marketplace](https://mar
 ### 0.0.6
 Initial release of BSL
 
-### 0.0.7
-Change the file extension from `.bsl` to `.bs`
