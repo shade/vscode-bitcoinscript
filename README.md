@@ -1,6 +1,6 @@
 # Bitcoin Scripting Language
 
-This is the syntax highlighting extension for the Bitcoin Scripting Language also known as Bitcoin Script or simply, Script. Specifically, this extension adheres to the grammar for post-genesis Bitcoin SV.
+This is the vscode language extension pack for the Bitcoin Scripting Language also known as Bitcoin Script or simply, Script. Specifically, this extension adheres to the grammar for post-genesis Bitcoin SV.
 
 The file type for the Bitcoin Scripting Language is `.bs`
 
