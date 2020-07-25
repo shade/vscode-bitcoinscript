@@ -58,7 +58,7 @@ export default class HoverProvider implements vscode.HoverProvider {
         }
         msg.push(body)
         if (disabled) {
-            msg.push(new vscode.MarkdownString('### DISABLED in Bitcoin SV'))
+            msg.push(new vscode.MarkdownString('**DISABLED in Bitcoin SV**'))
         }
 
         return new vscode.Hover(msg);
