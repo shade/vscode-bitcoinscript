@@ -1,7 +1,7 @@
 {
     "name": "bsl",
     "displayName": "Bitcoin Script",
-    "description": "Syntax highlighting for Bitcoin Script",
+    "description": "Bitcoin Scripting Language support for Visual Studio Code",
     "version": "0.0.11",
     "publisher": "shade",
     "homepage": "https://github.com/shade/vscode-bitcoinscript",
@@ -19,6 +19,8 @@
     },
     "categories": [
         "Formatters",
+        "Snippets",
+        "Language Packs",
         "Programming Languages",
         "Other"
     ],
