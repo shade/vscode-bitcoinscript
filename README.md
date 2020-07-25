@@ -9,13 +9,17 @@ The file type for Bitcoin Script is `.bs`
 - [x] Formatting
 - [x] Code Snippets
 - [x] Definitions
-- [] Debugger
-- [] Linter
+- [ ] Debugger
+- [ ] Linter
 
 ### Formatting
+The formatter automatically puts each opcode and piece of data on a new line. All OP_IF/OP_ELSE branches are indented.
+
 ![Formatting Image](images/formatter.gif)
 
 ### Definitions
+The definitions are based on the definitions.yaml file which was created by scraping the [Bitcoin Wiki](https://en.bitcoin.it/wiki/Script) and later corrections were added from the [Bitcoin SV Wiki](https://wiki.bitcoinsv.io/index.php/Opcodes_used_in_Bitcoin_Script). To add or update definitions please make a PR editing the `definitions/bitcoinscript.yaml` file.
+
 ![Definitions](images/definitions.gif)
 
 ## Installation
@@ -26,7 +30,9 @@ Alternatively, you can download the extension from the [marketplace](https://mar
 
 ## Release Notes
 ### 0.0.11
-Add in new syntax highlighting, a formatter, and hover card based on definitions file.
+- New syntax highlighting (reserved OPCODES now supported)
+- Formatter for indenting based on OP_IF/OP_ELSE branches
+- Hover card based on definitions file.
 
 ### 0.0.6
 Initial release of BSL
