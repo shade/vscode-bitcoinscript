@@ -9,6 +9,7 @@ const TOKENS = {
     NEWLINE: "\n",
     WHITESPACE: " ",
     OP_IF: "OP_IF",
+    OP_NOTIF: "OP_NOTIF",
     OP_ELSE: "OP_ELSE",
     OP_ENDIF: "OP_ENDIF",
     OP_PUSHDATA1: "OP_PUSHDATA1",
@@ -97,6 +98,7 @@ export default class ForamttingEditProvider implements vscode.DocumentFormatting
                 case TOKENS.WHITESPACE:
                     indentCount = 0;
                     break;
+                case TOKENS.OP_NOTIF:
                 case TOKENS.OP_IF:
                     branches += 1;
                     break;
