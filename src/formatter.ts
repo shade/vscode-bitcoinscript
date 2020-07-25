@@ -1,57 +1,81 @@
 
 import * as vscode from 'vscode';
-
+import * as vsctm from 'vscode-textmate';
+import * as oniguruma from 'vscode-oniguruma';
+import fs from 'promise-fs';
 
 const TOKENS = {
     EMPTY: "",
     NEWLINE: "\n",
+    WHITESPACE: " ",
     OP_IF: "OP_IF",
     OP_ELSE: "OP_ELSE",
-    OP_ENDIF: "OP_ENDIF"
+    OP_ENDIF: "OP_ENDIF",
+    OP_PUSHDATA1: "OP_PUSHDATA1",
+    OP_PUSHDATA2: "OP_PUSHDATA2",
+    OP_PUSHDATA4: "OP_PUSHDATA4",
 }
 
 export default class ForamttingEditProvider implements vscode.DocumentFormattingEditProvider {
     private isStringStart(str: string): boolean {
-        return str[0] == "'"
+        return str[0] === "'"
     }
 
     private isStringEnd(str: string): boolean {
-        return str[str.length - 1] == "'"
+        return str[str.length - 1] === "'"
     }
 
     private isOpenString(str: string): boolean {
         return this.isStringStart(str) && !this.isStringEnd(str)
     }
 
-    private tokenize(line: string): string[] {
-        let tokens = line.trim().split(" ");
+    private isWhitespace(str: string): boolean {
+        return (/\s/g).test(str);
+    }
 
-        return tokens
-            .reduce((prev: string[], rawToken: string): string[] => {
-                let token = rawToken.trim()
-                let last = prev[prev.length - 1]
+    private isHex(str: string): boolean {
+        return (/^[0-9a-fA-F]+$/).test(str);
+    }
 
-                if (!token) {
-                    return;
+    private tokenize(line): string[] {
+        return line.trim().split('')
+            .reduce((tokens: string[], ch: string): string[] => {
+
+                if (tokens.length === 0) {
+                    return [ch];
                 }
 
-                if (prev.length && this.isOpenString(last)) {
-                    if (this.isStringEnd(token)) {
-                        prev[prev.length - 1] += rawToken.trimRight()
+                let last = tokens.pop();
+
+                if (this.isOpenString(last)) {
+                    last += ch;
+                    tokens.push(last);
+                    return tokens;
+                }
+
+                if (this.isWhitespace(last)) {
+                    if (this.isWhitespace(ch)) {
+                        tokens.push(last);
                     } else {
-                        prev[prev.length - 1] += rawToken
+                        tokens.push(last, ch);
                     }
-                    return prev
+                } else {
+                    if (this.isWhitespace(ch)) {
+                        tokens.push(last, TOKENS.WHITESPACE);
+                    } else {
+                        last += ch;
+                        tokens.push(last);
+                    }
                 }
 
-                return prev.concat([token])
-            }, [])
+                return tokens;
+            }, []);
     }
 
     private removeNewLines(tokens: string[]): string[] {
         return tokens.filter((token, i, tokens) => {
-            if (token == TOKENS.NEWLINE) {
-                if ((tokens[i + 1] != TOKENS.NEWLINE) && (tokens[i - 1] == TOKENS.NEWLINE)) {
+            if (token === TOKENS.NEWLINE) {
+                if ((tokens[i + 1] != TOKENS.NEWLINE) && (tokens[i - 1] === TOKENS.NEWLINE)) {
                     return true;
                 } else {
                     return false;
@@ -69,7 +93,8 @@ export default class ForamttingEditProvider implements vscode.DocumentFormatting
             let indentCount = branches;
 
             switch (token) {
-                case TOKENS.EMPTY:
+                case TOKENS.NEWLINE:
+                case TOKENS.WHITESPACE:
                     indentCount = 0;
                     break;
                 case TOKENS.OP_IF:
@@ -97,13 +122,38 @@ export default class ForamttingEditProvider implements vscode.DocumentFormatting
         })
     }
 
+    private compile(tokens: string[]): string {
+        return tokens.reduce((text: string, token: string): string => {
+            switch (token) {
+                case TOKENS.NEWLINE:
+                    text += '\n'
+                    break;
+                case TOKENS.WHITESPACE:
+                    break;
+                default:
+                    text += `${token}\n`;
+                    break;
+            }
+
+            return text;
+        }, "").trim();
+    }
+
     public provideDocumentFormattingEdits(document: vscode.TextDocument, options: vscode.FormattingOptions): vscode.TextEdit[] {
         let tokens = [];
         let lines = document.lineCount;
 
         for (let i = 0; i < lines; i++) {
             let line = document.lineAt(i);
-            tokens = tokens.concat(this.tokenize(line.text), [TOKENS.NEWLINE]);
+            let lineTokens = this.tokenize(line.text);
+
+            if (lineTokens.length === 0) {
+                if (tokens.length > 0 && tokens[tokens.length - 1] != TOKENS.NEWLINE) {
+                    tokens.push(TOKENS.NEWLINE);
+                }
+            } else {
+                tokens = tokens.concat(lineTokens, []);
+            }
         }
 
         let indent = '\t';
@@ -111,18 +161,16 @@ export default class ForamttingEditProvider implements vscode.DocumentFormatting
             indent = ' '.repeat(options.tabSize)
         }
 
-        let indentedTokens = this.indent(
-            this.removeNewLines(tokens),
-            indent
-        );
-        let newText = indentedTokens.join('\n');
+        tokens = this.indent(tokens, indent);
+        let text = this.compile(tokens);
+
 
         let wholeRange = new vscode.Range(
             document.lineAt(0).range.start,
             document.lineAt(lines - 1).range.end,
         );
 
-        return [vscode.TextEdit.replace(wholeRange, newText)]
+        return [vscode.TextEdit.replace(wholeRange, text)];
     }
 }
 

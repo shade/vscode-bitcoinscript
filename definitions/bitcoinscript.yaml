@@ -1,0 +1,579 @@
+- opcode: OP_0|OP_FALSE
+  dec: "0"
+  hex: "0x00"
+  input: Nothing.
+  output: "(empty value)"
+  description:
+    "An empty array of bytes is pushed onto the stack. (This is not a no-op:
+    an item is added to the stack.)"
+- opcode: 01|02|03|04|05|06|07|08|09|0a|0b|0c|0d|0e|0f|10|11|12|13|14|15|16|17|18|19|1a|1b|1c|1d|1e|1f|20|21|22|23|24|25|26|27|28|29|2a|2b|2c|2d|2e|2f|30|31|32|33|34|35|36|37|38|39|3a|3b|3c|3d|3e|3f|40|41|42|43|44|45|46|47|48|49|4a|4b
+  dec: 1-75
+  hex: 0x01-0x4b
+  input: "(special)"
+  output: data
+  description: The next opcode bytes is data to be pushed onto the stack
+- opcode: OP_PUSHDATA1
+  dec: "76"
+  hex: "0x4c"
+  input: "(special)"
+  output: data
+  description: The next byte contains the number of bytes to be pushed onto the stack.
+- opcode: OP_PUSHDATA2
+  dec: "77"
+  hex: "0x4d"
+  input: "(special)"
+  output: data
+  description:
+    The next two bytes contain the number of bytes to be pushed onto the
+    stack in little endian order.
+- opcode: OP_PUSHDATA4
+  dec: "78"
+  hex: "0x4e"
+  input: "(special)"
+  output: data
+  description:
+    The next four bytes contain the number of bytes to be pushed onto the
+    stack in little endian order.
+- opcode: OP_1NEGATE
+  dec: "79"
+  hex: "0x4f"
+  input: Nothing.
+  output: "-1"
+  description: The number -1 is pushed onto the stack.
+- opcode: OP_1, OP_TRUE
+  dec: "81"
+  hex: "0x51"
+  input: Nothing.
+  output: "1"
+  description: The number 1 is pushed onto the stack.
+- opcode: OP_2-OP_16
+  dec: 82-96
+  hex: 0x52-0x60
+  input: Nothing.
+  output: 2-16
+  description: The number in the word name (2-16) is pushed onto the stack.
+- opcode: OP_NOP
+  dec: "97"
+  hex: "0x61"
+  input: Nothing
+  output: Nothing
+  description: Does nothing.
+- opcode: OP_IF
+  dec: "99"
+  hex: "0x63"
+  usage: "<expression> if [statements] [else [statements]]* endif"
+  description:
+    If the top stack value is EQUAL to the version of the protocol under which this transaction will be evaluated, the statements between IF and ELSE are executed.
+    If the top stack value is NOT EQUAL to the version of the protocol under which this transaction will be evaluated, the statements between ELSE and ENDIF are executed.
+    The top stack value is removed. (This opcode is scheduled to be re-enabled in the Chronicle update)
+- opcode: OP_NOTIF
+  dec: "100"
+  hex: "0x64"
+  usage: "<expression> notif [statements] [else [statements]]* endif"
+  description:
+    If the top stack value is FALSE, the statements between IF and ELSE are executed.
+    If the top stack value is not FALSE the statements between ELSE and ENDIF are executed.
+    The top stack value is removed.
+- opcode: OP_ELSE
+  dec: "103"
+  hex: "0x67"
+  usage: "<expression> if [statements] [else [statements]]* endif"
+  description: If the preceding OP_IF or OP_NOTIF or OP_ELSE was not executed then these statements are and if the preceding OP_IF or OP_NOTIF or OP_ELSE was executed then these statements are not.
+- opcode: OP_ENDIF
+  dec: "104"
+  hex: "0x68"
+  usage: "<expression> if [statements] [else [statements]]* endif"
+  description: Ends an if/else block. All blocks must end, or the transaction is invalid. An OP_ENDIF without a prior matching OP_IF or OP_NOTIF is also invalid.
+- opcode: OP_VERIFY
+  dec: "105"
+  hex: "0x69"
+  input: True / false
+  output: Nothing / fail
+  description: "Marks transaction as invalid if top stack value is not true.
+    The top stack value is removed."
+
+- opcode: OP_RETURN
+  dec: "106"
+  hex: "0x6a"
+  description: Ends script with top value on stack as final result. Will not check the rest of the script for syntactical correctness unless executed inside OP_IF/OP_ELSE branch.
+
+# Stack operations
+- opcode: OP_TOALTSTACK
+  dec: "107"
+  hex: "0x6b"
+  input: x1
+  output: "(alt)x1"
+  description:
+    Puts the input onto the top of the alt stack. Removes it from the main
+    stack.
+- opcode: OP_FROMALTSTACK
+  dec: "108"
+  hex: "0x6c"
+  input: "(alt)x1"
+  output: x1
+  description:
+    Puts the input onto the top of the main stack. Removes it from the
+    alt stack.
+- opcode: OP_IFDUP
+  dec: "115"
+  hex: "0x73"
+  input: x
+  output: x / x x
+  description: If the top stack value is not 0, duplicate it.
+- opcode: OP_DEPTH
+  dec: "116"
+  hex: "0x74"
+  input: Nothing
+  output: "<Stack size>"
+  description: Puts the number of stack items onto the stack.
+- opcode: OP_DROP
+  dec: "117"
+  hex: "0x75"
+  input: x
+  output: Nothing
+  description: Removes the top stack item.
+- opcode: OP_DUP
+  dec: "118"
+  hex: "0x76"
+  input: x
+  output: x x
+  description: Duplicates the top stack item.
+- opcode: OP_NIP
+  dec: "119"
+  hex: "0x77"
+  input: x1 x2
+  output: x2
+  description: Removes the second-to-top stack item.
+- opcode: OP_OVER
+  dec: "120"
+  hex: "0x78"
+  input: x1 x2
+  output: x1 x2 x1
+  description: Copies the second-to-top stack item to the top.
+- opcode: OP_PICK
+  dec: "121"
+  hex: "0x79"
+  input: xn ... x2 x1 x0 <n>
+  output: xn ... x2 x1 x0 xn
+  description: The item n back in the stack is copied to the top.
+- opcode: OP_ROLL
+  dec: "122"
+  hex: "0x7a"
+  input: xn ... x2 x1 x0 <n>
+  output: "... x2 x1 x0 xn"
+  description: The item n back in the stack is moved to the top.
+- opcode: OP_ROT
+  dec: "123"
+  hex: "0x7b"
+  input: x1 x2 x3
+  output: x2 x3 x1
+  description: The top three items on the stack are rotated to the left.
+- opcode: OP_SWAP
+  dec: "124"
+  hex: "0x7c"
+  input: x1 x2
+  output: x2 x1
+  description: The top two items on the stack are swapped.
+- opcode: OP_TUCK
+  dec: "125"
+  hex: "0x7d"
+  input: x1 x2
+  output: x2 x1 x2
+  description:
+    The item at the top of the stack is copied and inserted before the
+    second-to-top item.
+- opcode: OP_2DROP
+  dec: "109"
+  hex: "0x6d"
+  input: x1 x2
+  output: Nothing
+  description: Removes the top two stack items.
+- opcode: OP_2DUP
+  dec: "110"
+  hex: "0x6e"
+  input: x1 x2
+  output: x1 x2 x1 x2
+  description: Duplicates the top two stack items.
+- opcode: OP_3DUP
+  dec: "111"
+  hex: "0x6f"
+  input: x1 x2 x3
+  output: x1 x2 x3 x1 x2 x3
+  description: Duplicates the top three stack items.
+- opcode: OP_2OVER
+  dec: "112"
+  hex: "0x70"
+  input: x1 x2 x3 x4
+  output: x1 x2 x3 x4 x1 x2
+  description: Copies the pair of items two spaces back in the stack to the front.
+- opcode: OP_2ROT
+  dec: "113"
+  hex: "0x71"
+  input: x1 x2 x3 x4 x5 x6
+  output: x3 x4 x5 x6 x1 x2
+  description: The fifth and sixth items back are moved to the top of the stack.
+- opcode: OP_2SWAP
+  dec: "114"
+  hex: "0x72"
+  input: x1 x2 x3 x4
+  output: x3 x4 x1 x2
+  description: Swaps the top two pairs of items.
+
+# Data manipulation
+- opcode: OP_CAT
+  dec: "126"
+  hex: "0x7e"
+  input: x1 x2
+  output: out
+  description: Concatenates two strings.
+- opcode: OP_SPLIT
+  dec: "127"
+  hex: "0x7f"
+  input: x n
+  output: x1 x2
+  description: Returns a section of a string.
+- opcode: OP_NUM2BIN
+  dec: "128"
+  hex: "0x80"
+  input: a b
+  output: out
+  description: Converts numeric value a into byte sequence of length b.
+- opcode: OP_BIN2NUM
+  dec: "129"
+  hex: "0x81"
+  input: x
+  output: out
+  description: Converts byte sequence x into a numeric value.
+- opcode: OP_SIZE
+  dec: "130"
+  hex: "0x82"
+  input: in
+  output: in size
+  description:
+    Pushes the string length of the top element of the stack (without popping
+    it).
+
+# Bitwise Operations
+- opcode: OP_INVERT
+  dec: "131"
+  hex: "0x83"
+  input: in
+  output: out
+  description: Flips all of the bits in the input.
+- opcode: OP_AND
+  dec: "132"
+  hex: "0x84"
+  input: x1 x2
+  output: out
+  description: Boolean and between each bit in the inputs.
+- opcode: OP_OR
+  dec: "133"
+  hex: "0x85"
+  input: x1 x2
+  output: out
+  description: Boolean or between each bit in the inputs.
+- opcode: OP_XOR
+  dec: "134"
+  hex: "0x86"
+  input: x1 x2
+  output: out
+  description: Boolean exclusive or between each bit in the inputs.
+- opcode: OP_EQUAL
+  dec: "135"
+  hex: "0x87"
+  input: x1 x2
+  output: True / false
+  description: Returns 1 if the inputs are exactly equal, 0 otherwise.
+- opcode: OP_EQUALVERIFY
+  dec: "136"
+  hex: "0x88"
+  input: x1 x2
+  output: Nothing / fail
+  description: Same as OP_EQUAL, but runs OP_VERIFY afterward.
+
+# Arithmetic operations
+- opcode: OP_1ADD
+  dec: "139"
+  hex: "0x8b"
+  input: in
+  output: out
+  description: 1 is added to the input.
+- opcode: OP_1SUB
+  dec: "140"
+  hex: "0x8c"
+  input: in
+  output: out
+  description: 1 is subtracted from the input.
+- opcode: OP_2MUL
+  dec: "141"
+  hex: "0x8d"
+  input: in
+  output: out
+  description: The input is multiplied by 2. Disabled until Chronicle Update.
+  disabled: true
+- opcode: OP_2DIV
+  dec: "142"
+  hex: "0x8e"
+  input: in
+  output: out
+  description: The input is divided by 2. Disabled until Chronicle Update.
+  disabled: true
+- opcode: OP_NEGATE
+  dec: "143"
+  hex: "0x8f"
+  input: in
+  output: out
+  description: The sign of the input is flipped.
+- opcode: OP_ABS
+  dec: "144"
+  hex: "0x90"
+  input: in
+  output: out
+  description: The input is made positive.
+- opcode: OP_NOT
+  dec: "145"
+  hex: "0x91"
+  input: in
+  output: out
+  description: If the input is 0 or 1, it is flipped. Otherwise the output will be 0.
+- opcode: OP_0NOTEQUAL
+  dec: "146"
+  hex: "0x92"
+  input: in
+  output: out
+  description: Returns 0 if the input is 0. 1 otherwise.
+- opcode: OP_ADD
+  dec: "147"
+  hex: "0x93"
+  input: a b
+  output: out
+  description: a is added to b.
+- opcode: OP_SUB
+  dec: "148"
+  hex: "0x94"
+  input: a b
+  output: out
+  description: b is subtracted from a.
+- opcode: OP_MUL
+  dec: "149"
+  hex: "0x95"
+  input: a b
+  output: out
+  description: a is multiplied by b.
+- opcode: OP_DIV
+  dec: "150"
+  hex: "0x96"
+  input: a b
+  output: out
+  description: a is divided by b.
+- opcode: OP_MOD
+  dec: "151"
+  hex: "0x97"
+  input: a b
+  output: out
+  description: Returns the remainder after dividing a by b.
+- opcode: OP_LSHIFT
+  dec: "152"
+  hex: "0x98"
+  input: a b
+  output: out
+  description: Shifts a left b bits logically. Sign may not preserved.
+- opcode: OP_RSHIFT
+  dec: "153"
+  hex: "0x99"
+  input: a b
+  output: out
+  description: Shifts a right b bits logically. Sign may not preserved.
+- opcode: OP_BOOLAND
+  dec: "154"
+  hex: "0x9a"
+  input: a b
+  output: out
+  description: If both a and b are not 0, the output is 1. Otherwise 0.
+- opcode: OP_BOOLOR
+  dec: "155"
+  hex: "0x9b"
+  input: a b
+  output: out
+  description: If a or b is not 0, the output is 1. Otherwise 0.
+- opcode: OP_NUMEQUAL
+  dec: "156"
+  hex: "0x9c"
+  input: a b
+  output: out
+  description: Returns 1 if the numbers are equal, 0 otherwise.
+- opcode: OP_NUMEQUALVERIFY
+  dec: "157"
+  hex: "0x9d"
+  input: a b
+  output: Nothing / fail
+  description: Same as OP_NUMEQUAL, but runs OP_VERIFY afterward.
+- opcode: OP_NUMNOTEQUAL
+  dec: "158"
+  hex: "0x9e"
+  input: a b
+  output: out
+  description: Returns 1 if the numbers are not equal, 0 otherwise.
+- opcode: OP_LESSTHAN
+  dec: "159"
+  hex: "0x9f"
+  input: a b
+  output: out
+  description: Returns 1 if a is less than b, 0 otherwise.
+- opcode: OP_GREATERTHAN
+  dec: "160"
+  hex: "0xa0"
+  input: a b
+  output: out
+  description: Returns 1 if a is greater than b, 0 otherwise.
+- opcode: OP_LESSTHANOREQUAL
+  dec: "161"
+  hex: "0xa1"
+  input: a b
+  output: out
+  description: Returns 1 if a is less than or equal to b, 0 otherwise.
+- opcode: OP_GREATERTHANOREQUAL
+  dec: "162"
+  hex: "0xa2"
+  input: a b
+  output: out
+  description: Returns 1 if a is greater than or equal to b, 0 otherwise.
+- opcode: OP_MIN
+  dec: "163"
+  hex: "0xa3"
+  input: a b
+  output: out
+  description: Returns the smaller of a and b.
+- opcode: OP_MAX
+  dec: "164"
+  hex: "0xa4"
+  input: a b
+  output: out
+  description: Returns the larger of a and b.
+- opcode: OP_WITHIN
+  dec: "165"
+  hex: "0xa5"
+  input: x min max
+  output: out
+  description: Returns 1 if x is within the specified range (left-inclusive), 0 otherwise.
+
+# Cryptographic Operations
+- opcode: OP_RIPEMD160
+  dec: "166"
+  hex: "0xa6"
+  input: in
+  output: hash
+  description: The input is hashed using RIPEMD-160.
+- opcode: OP_SHA1
+  dec: "167"
+  hex: "0xa7"
+  input: in
+  output: hash
+  description: The input is hashed using SHA-1.
+- opcode: OP_SHA256
+  dec: "168"
+  hex: "0xa8"
+  input: in
+  output: hash
+  description: The input is hashed using SHA-256.
+- opcode: OP_HASH160
+  dec: "169"
+  hex: "0xa9"
+  input: in
+  output: hash
+  description: "The input is hashed twice: first with SHA-256 and then with RIPEMD-160."
+- opcode: OP_HASH256
+  dec: "170"
+  hex: "0xaa"
+  input: in
+  output: hash
+  description: The input is hashed two times with SHA-256.
+- opcode: OP_CODESEPARATOR
+  dec: "171"
+  hex: "0xab"
+  input: Nothing
+  output: Nothing
+  description:
+    All of the signature checking words will only match signatures to the
+    data after the most recently-executed OP_CODESEPARATOR.
+- opcode: OP_CHECKSIG
+  dec: "172"
+  hex: "0xac"
+  input: sig pubkey
+  output: True / false
+  description:
+    The entire transaction's outputs, inputs, and script (from the most
+    recently-executed OP_CODESEPARATOR to the end) are hashed. The signature used
+    by OP_CHECKSIG must be a valid signature for this hash and public key. If it is,
+    1 is returned, 0 otherwise.
+- opcode: OP_CHECKSIGVERIFY
+  dec: "173"
+  hex: "0xad"
+  input: sig pubkey
+  output: Nothing / fail
+  description: Same as OP_CHECKSIG, but OP_VERIFY is executed afterward.
+- opcode: OP_CHECKMULTISIG
+  dec: "174"
+  hex: "0xae"
+  input: x sig1 sig2 ... <number of signatures> pub1 pub2 <number of public
+    keys>
+  output: True / False
+  description:
+    Compares the first signature against each public key until it finds
+    an ECDSA match. Starting with the subsequent public key, it compares the second
+    signature against each remaining public key until it finds an ECDSA match. The
+    process is repeated until all signatures have been checked or not enough public
+    keys remain to produce a successful result. All signatures need to match a public
+    key. Because public keys are not checked again if they fail any signature comparison,
+    signatures must be placed in the scriptSig using the same order as their corresponding
+    public keys were placed in the scriptPubKey or redeemScript. If all signatures
+    are valid, 1 is returned, 0 otherwise. Due to a bug, one extra unused value is
+    removed from the stack.
+- opcode: OP_CHECKMULTISIGVERIFY
+  dec: "175"
+  hex: "0xaf"
+  input: x sig1 sig2 ... <number of signatures> pub1 pub2 <number of public
+    keys>
+  output: True / False
+  description: Same as OP_CHECKMULTISIG, but OP_VERIFY is executed afterward.
+
+# Disabled opcodes.
+- opcode: OP_VER
+  dec: "98"
+  hex: "0x62"
+  description: "Transaction is invalid unless occuring in an unexecuted OP_IF
+    branch"
+  disabled: true
+- opcode: OP_VERIF
+  dec: "101"
+  hex: "0x65"
+  description: "Transaction is invalid even when occuring in an unexecuted OP_IF
+    branch"
+  disabled: true
+- opcode: OP_VERNOTIF
+  dec: "102"
+  hex: "0x66"
+  description: "Transaction is invalid even when occuring in an unexecuted OP_IF
+    branch"
+  disabled: true
+
+# Reserved words
+- opcode: OP_RESERVED
+  dec: "80"
+  hex: "0x50"
+  description: "Transaction is invalid unless occuring in an unexecuted OP_IF
+    branch"
+- opcode: OP_RESERVED1
+  dec: "137"
+  hex: "0x89"
+  description: "Transaction is invalid unless occuring in an unexecuted OP_IF
+    branch"
+- opcode: OP_RESERVED2
+  dec: "138"
+  hex: "0x8a"
+  description: "Transaction is invalid unless occuring in an unexecuted OP_IF
+    branch"
+- opcode: OP_NOP1|OP_NOP2|OP_NOP3|OP_NOP4|OP_NOP5|OP_NOP6|OP_NOP7|OP_NOP8|OP_NOP9|OP_NOP10
+  dec: 176|177|178|179|180|181|182|183|184|185
+  hex: 0xb0|0xb1|0xb2|0xb3|0xb4|0xb5|0xb6|0xb7|0xb8|0xb9
+  description: The word is ignored. Does not mark transaction as invalid.

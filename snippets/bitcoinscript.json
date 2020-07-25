@@ -1,0 +1,55 @@
+{
+    "IF": {
+        "prefix": [
+            "OP_IF",
+            "OP",
+            "IF"
+        ],
+        "body": [
+            "OP_IF",
+            "\t${1}",
+            "OP_ELSE",
+            "\t${2}",
+            "OP_ENDIF"
+        ],
+        "description": "executes IF block if top stack value is true."
+    },
+    "PUSHDATA1": {
+        "prefix": [
+            "OP_PUSHDATA1",
+            "OP_P"
+        ],
+        "body": [
+            "OP_PUSHDATA1",
+            "${1:0A}",
+            "${2:00112233445566778899}"
+        ],
+        "description": "Pushes the next byte worth of data onto the stack"
+    },
+    "PUSHDATA2": {
+        "prefix": [
+            "OP_PUSHDATA2",
+            "OP_PUSH",
+            "OP_P"
+        ],
+        "body": [
+            "OP_PUSHDATA2",
+            "${1:0A00}",
+            "${2:00112233445566778899}"
+        ],
+        "description": "Pushes the next 2 bytes worth of data onto the stack"
+    },
+    "PUSHDATA4": {
+        "prefix": [
+            "OP_PUSHDATA4",
+            "OP_PUSH",
+            "OP_P"
+        ],
+        "body": [
+            "OP_PUSHDATA4",
+            "${1:0A000000}",
+            "${2:00112233445566778899}"
+        ],
+        "description": "Pushes the next 4 bytes worth of data onto the stack"
+    }
+}

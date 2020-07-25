@@ -4,13 +4,13 @@
     "description": "Syntax highlighting for Bitcoin Script",
     "version": "0.0.10",
     "publisher": "shade",
-    "homepage": "https://github.com/shade/bsl",
+    "homepage": "https://github.com/shade/vscode-bitcoinscript",
     "repository": {
         "type": "git",
-        "url": "https://github.com/shade/bsl"
+        "url": "https://github.com/shade/vscode-bitcoinscript"
     },
     "bugs": {
-        "url": "https://github.com/shade/bsl/issues"
+        "url": "https://github.com/shade/vscode-bitcoinscript/issues"
     },
     "license": "MIT",
     "icon": "images/icon.png",
@@ -18,12 +18,17 @@
         "vscode": "^1.0.0"
     },
     "categories": [
-        "Programming Languages"
+        "Formatters",
+        "Programming Languages",
+        "Other"
     ],
     "activationEvents": [
         "onLanguage:bitcoinscript"
     ],
     "main": "./out/src/extension",
+    "capabilities": {
+        "hoverProvider": "true"
+    },
     "contributes": {
         "languages": [
             {
@@ -45,13 +50,24 @@
         "grammars": [
             {
                 "language": "bitcoinscript",
-                "scopeName": "source",
+                "scopeName": "source.bitcoinscript",
                 "path": "./syntaxes/bitcoinscript.json"
+            }
+        ],
+        "snippets": [
+            {
+                "language": "bitcoinscript",
+                "path": "./snippets/bitcoinscript.json"
             }
         ]
     },
     "dependencies": {
-        "@types/node": "^14.0.23"
+        "@types/node": "^14.0.23",
+        "js-yaml": "^3.14.0",
+        "oniguruma": "^7.2.1",
+        "promise-fs": "^2.1.1",
+        "vscode-oniguruma": "^1.3.1",
+        "vscode-textmate": "^5.2.0"
     },
     "devDependencies": {
         "vscode": "^1.1.37"

@@ -7,9 +7,8 @@ The file type for Bitcoin Script is `.bs`
 ## Features
 - [x] Syntax highlighting
 - [x] Formatting
-- [] Code Snippets
-- [] Linting
-
+- [x] Code Snippets
+- [x] Definitions
 
 ![Syntax highlighting](images/syntax-highlight.png)
 
