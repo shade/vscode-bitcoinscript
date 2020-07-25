@@ -15,8 +15,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [0.0.10] - 2020-07-19
 - Add formatting for OP_IF/OP_ELSE/OP_ENDIF and OP_IF/OP_ENDIF structures
 
-## [0.0.11] - 2020-07-24
+## [0.0.12] - 2020-07-25
 - Add in new syntax highlighting via different schema
-- Fix the formatter that was previously added
+- Fix the formatter that was previously added (OP_NOTIF added)
 - Add hover card for definitions file
 - Release this version to the public.

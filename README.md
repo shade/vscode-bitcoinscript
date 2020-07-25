@@ -1,8 +1,8 @@
-# Bitcoin Script
+# Bitcoin Scripting Language
 
 This is the syntax highlighting extension for the Bitcoin Scripting Language also known as Bitcoin Script or simply, Script. Specifically, this extension adheres to the grammar for post-genesis Bitcoin SV.
 
-The file type for Bitcoin Script is `.bs`
+The file type for the Bitcoin Scripting Language is `.bs`
 
 ## Features
 - [x] Syntax highlighting
@@ -29,7 +29,7 @@ The definitions are based on the definitions.yaml file which was created by scra
 Alternatively, you can download the extension from the [marketplace](https://marketplace.visualstudio.com/items?itemName=shade.bsl).
 
 ## Release Notes
-### 0.0.11
+### 0.0.12
 - New syntax highlighting (reserved OPCODES now supported)
 - Formatter for indenting based on OP_IF/OP_ELSE branches
 - Hover card based on definitions file.
