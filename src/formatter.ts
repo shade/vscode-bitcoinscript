@@ -1,8 +1,5 @@
 
 import * as vscode from 'vscode';
-import * as vsctm from 'vscode-textmate';
-import * as oniguruma from 'vscode-oniguruma';
-import fs from 'promise-fs';
 
 const TOKENS = {
     EMPTY: "",
