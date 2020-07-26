@@ -20,3 +20,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Fix the formatter that was previously added (OP_NOTIF added)
 - Add hover card for definitions file
 - Release this version to the public.
+
+## [0.0.14] - 2020-07-26
+- Update the hover card and fix some issues with definitions
+- Hover card code must be refactored later
