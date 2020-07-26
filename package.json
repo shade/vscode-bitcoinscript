@@ -2,7 +2,7 @@
     "name": "bsl",
     "displayName": "Bitcoin Scripting Language",
     "description": "Bitcoin Scripting Language support for Visual Studio Code",
-    "version": "0.0.13",
+    "version": "0.0.14",
     "publisher": "shade",
     "homepage": "https://github.com/shade/vscode-bitcoinscript",
     "repository": {
