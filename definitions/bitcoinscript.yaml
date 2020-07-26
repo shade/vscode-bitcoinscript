@@ -63,7 +63,7 @@
   description:
     If the top stack value is EQUAL to the version of the protocol under which this transaction will be evaluated, the statements between IF and ELSE are executed.
     If the top stack value is NOT EQUAL to the version of the protocol under which this transaction will be evaluated, the statements between ELSE and ENDIF are executed.
-    The top stack value is removed. (This token is scheduled to be re-enabled in the Chronicle update)"
+    The top stack value is removed. (This opcode is scheduled to be re-enabled in the Chronicle update)"
 - token: OP_NOTIF
   dec: "100"
   hex: "64"
@@ -541,7 +541,7 @@
   hex: "62"
   description:
     "Puts the version of the protocol under which this transaction will be evaluated onto the stack.
-    (This token is scheduled to be re-enabled in the Chronicle update)"
+    (This opcode is scheduled to be re-enabled in the Chronicle update)"
   disabled: true
 - token: OP_VERIF
   dec: "101"
@@ -549,7 +549,7 @@
   description:
     "If the top stack value is EQUAL to the version of the protocol under which this transaction will be evaluated, the statements between IF and ELSE are executed.
     If the top stack value is NOT EQUAL to the version of the protocol under which this transaction will be evaluated, the statements between ELSE and ENDIF are executed.
-    The top stack value is removed. (This token is scheduled to be re-enabled in the Chronicle update)"
+    The top stack value is removed. (This opcode is scheduled to be re-enabled in the Chronicle update)"
   disabled: true
 - token: OP_VERNOTIF
   dec: "102"
@@ -557,7 +557,7 @@
   description:
     "If the top stack value is NOT EQUAL to the version of the protocol under which this transaction will be evaluated, the statements between IF and ELSE are executed.
     If the top stack value is EQUAL to the version of the protocol under which this transaction will be evaluated, the statements between ELSE and ENDIF are executed.
-    The top stack value is removed. (This token is scheduled to be re-enabled in the Chronicle update)"
+    The top stack value is removed. (This opcode is scheduled to be re-enabled in the Chronicle update)"
   disabled: true
 
 # Reserved words
