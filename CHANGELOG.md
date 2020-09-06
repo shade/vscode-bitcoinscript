@@ -24,3 +24,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [0.0.14] - 2020-07-26
 - Update the hover card and fix some issues with definitions
 - Hover card code must be refactored later
+
+## [0.0.15] - 2020-09-06
+- Added `bsl.debug` and `bsl.evaluate` commands
+- Added external package dartlib in /lib
