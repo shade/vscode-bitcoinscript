@@ -2,7 +2,7 @@
     "name": "bsl",
     "displayName": "Bitcoin Scripting Language",
     "description": "Bitcoin Scripting Language support for Visual Studio Code",
-    "version": "0.0.14",
+    "version": "0.0.15",
     "publisher": "shade",
     "homepage": "https://github.com/shade/vscode-bitcoinscript",
     "repository": {
@@ -25,13 +25,25 @@
         "Other"
     ],
     "activationEvents": [
-        "onLanguage:bitcoinscript"
+        "onLanguage:bitcoinscript",
+        "onCommand:bsl.evaluate",
+        "onCommand:bsl.debug"
     ],
-    "main": "./out/src/extension",
+    "main": "./out/extension",
     "capabilities": {
         "hoverProvider": "true"
     },
     "contributes": {
+		"commands": [
+			{
+				"command": "bsl.evaluate",
+				"title": "BitcoinScript: Evaluate Script"
+			},
+			{
+				"command": "bsl.debug",
+				"title": "BitcoinScript: Debug Script"
+			}
+		],
         "languages": [
             {
                 "id": "bitcoinscript",

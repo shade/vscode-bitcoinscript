@@ -9,8 +9,16 @@ The file type for the Bitcoin Scripting Language is `.bs`
 - [x] Formatting
 - [x] Code Snippets
 - [x] Definitions
-- [ ] Debugger
+- [x] Debugger
 - [ ] Linter
+
+### Quick Evaluator + Debugger
+The quick evalutor will execute the script and output whether or it's TRUE, FALSE, or INVALID.
+
+![Formatting Image](images/evaluator.gif)
+
+The debugger will show you the resulting stack, alt-stack, and what kind of error is produced.
+![Formatting Image](images/debugger.gif)
 
 ### Formatting
 The formatter automatically puts each opcode and piece of data on a new line. All OP_IF/OP_ELSE branches are indented.
@@ -29,6 +37,10 @@ The definitions are based on the definitions.yaml file which was created by scra
 Alternatively, you can download the extension from the [marketplace](https://marketplace.visualstudio.com/items?itemName=shade.bsl).
 
 ## Release Notes
+### 0.0.15
+- Introduction of the debugger and evaluator
+- Added `bsl.debug` and `bsl.evaluate` commands
+
 ### 0.0.12
 - New syntax highlighting (reserved OPCODES now supported)
 - Formatter for indenting based on OP_IF/OP_ELSE branches
